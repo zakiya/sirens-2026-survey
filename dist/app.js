@@ -1,6 +1,7 @@
 (function () {
   const survey = window.SURVEY;
   const DRAFT_KEY = "sirens-2026-survey-draft";
+  const OTHER = "Other";
   const HINTS = {
     single: "Choose one.",
     multi: "Select all that apply.",
@@ -94,7 +95,9 @@
     if (q.other) {
       const id = `${q.id}-other`;
       const otherText = answers[`${q.id}_other`] || "";
-      const input = el("input", { type: "checkbox", id, name: q.id, value: "__other", checked: !!otherText });
+      // Single-choice questions store "Other" as the answer; multi-choice ones only keep the text.
+      const checked = kind === "radio" ? answers[q.id] === OTHER : !!otherText;
+      const input = el("input", { type: kind, id, name: q.id, value: "__other", checked });
       const text = el("input", {
         type: "text",
         class: "other-text",
@@ -103,6 +106,7 @@
         value: otherText,
       });
       input.addEventListener("change", () => {
+        if (kind === "radio") setAnswer(q.id, OTHER);
         if (input.checked) text.focus();
         else {
           text.value = "";
@@ -110,7 +114,12 @@
         }
       });
       text.addEventListener("input", () => {
-        input.checked = text.value.trim() !== "";
+        if (kind === "radio") {
+          input.checked = true;
+          answers[q.id] = OTHER;
+        } else {
+          input.checked = text.value.trim() !== "";
+        }
         setAnswer(`${q.id}_other`, text.value);
       });
       list.append(el("label", { class: "choice choice-other", for: id }, input, text));
@@ -119,7 +128,13 @@
   }
 
   function onChoice(q, kind, opt, checked) {
-    if (kind === "radio") return setAnswer(q.id, opt);
+    if (kind === "radio") {
+      if (q.other) {
+        form.querySelector(`#${q.id}-other`).parentNode.querySelector(".other-text").value = "";
+        answers[`${q.id}_other`] = "";
+      }
+      return setAnswer(q.id, opt);
+    }
 
     let selected = new Set(answers[q.id] || []);
     if (checked) {
