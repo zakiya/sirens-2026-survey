@@ -127,7 +127,6 @@ window.SURVEY = {
             "Drums and chants",
             "Discord",
             "Newsletter",
-            "Sirens discounts",
           ],
           options: [...SATISFACTION, "Doesn't apply to me"],
         },
