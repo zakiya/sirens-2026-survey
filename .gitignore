@@ -1,0 +1,5 @@
+.DS_Store
+.idea/
+.claude/
+# Design system source files are internal; the site only needs dist/.
+design/

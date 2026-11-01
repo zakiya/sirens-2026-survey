@@ -1,0 +1,453 @@
+/* Survey layout. All colors, type and spacing come from tokens.css
+   (copied unchanged from the San Diego Sirens design system). */
+
+/* The brand palette has no error color, so the survey defines its own. */
+:root {
+  --error: #c8102e;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  background: var(--bg-alt);
+}
+
+a {
+  color: var(--link);
+}
+
+:focus-visible {
+  outline: 2px solid var(--siren-wave);
+  outline-offset: 2px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: var(--sp-6) var(--sp-4) var(--sp-7);
+}
+
+/* ---- Progress ---------------------------------------------------------- */
+
+.progress {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-4);
+  background: var(--siren-deep);
+  border-bottom: var(--bw-med) solid var(--siren-wave);
+}
+
+.progress-track {
+  flex: 1;
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: rgb(255 255 255 / 0.18);
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: var(--siren-wave);
+  transition: width 0.25s ease;
+}
+
+.progress-text {
+  font-family: var(--font-accent);
+  font-size: var(--fs-12);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--siren-sand);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Masthead ---------------------------------------------------------- */
+
+.masthead {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--sp-5);
+  margin-bottom: var(--sp-3);
+}
+
+.crest {
+  flex: none;
+  width: 72px;
+  height: auto;
+}
+
+h1 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: clamp(var(--fs-32), 7vw, var(--fs-56));
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--siren-deep);
+}
+
+.intro p {
+  margin: 0 0 var(--sp-3);
+  max-width: 62ch;
+}
+
+.intro {
+  margin-bottom: var(--sp-7);
+}
+
+.intro strong {
+  color: var(--siren-deep);
+}
+
+.wave-rule {
+  margin-bottom: var(--sp-5);
+}
+
+/* ---- Sections & questions --------------------------------------------- */
+
+.section {
+  margin-bottom: var(--sp-7);
+}
+
+.section-head {
+  margin-bottom: var(--sp-5);
+  padding-bottom: var(--sp-3);
+  border-bottom: var(--bw-thin) solid var(--siren-deep);
+}
+
+h2 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: var(--fs-24);
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--siren-deep);
+}
+
+.question {
+  margin: 0 0 var(--sp-4);
+  padding: var(--sp-5);
+  border: var(--bw-thin) solid var(--siren-deep);
+  border-radius: var(--r-md);
+  background: var(--bg);
+  min-width: 0;
+}
+
+.question.invalid {
+  border-color: var(--error);
+  box-shadow: 0 0 0 1px var(--error);
+}
+
+/* Floating the legend keeps it inside the fieldset border instead of on it. */
+.q-label {
+  float: left;
+  width: 100%;
+  margin-bottom: var(--sp-2);
+  padding: 0;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-20);
+  line-height: 1.3;
+  color: var(--siren-deep);
+}
+
+/* Questions are numbered with a counter so hidden ones don't leave gaps. */
+#survey {
+  counter-reset: question;
+}
+
+.question {
+  counter-increment: question;
+}
+
+.q-num::before {
+  content: counter(question) ". ";
+}
+
+.question > :not(legend) {
+  clear: both;
+}
+
+.q-required {
+  margin-left: var(--sp-2);
+  color: var(--error);
+}
+
+.q-hint {
+  margin: 0 0 var(--sp-4);
+  font-size: var(--fs-14);
+  font-style: italic;
+  color: var(--text-soft);
+}
+
+.q-error,
+.submit-error {
+  margin: var(--sp-2) 0 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-14);
+  font-weight: 600;
+  color: var(--error);
+}
+
+.submit-error {
+  margin: 0;
+}
+
+.q-error:empty,
+.submit-error:empty {
+  display: none;
+}
+
+/* ---- Choices ----------------------------------------------------------- */
+
+.choices {
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border: var(--bw-thin) solid var(--border);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.choice:hover {
+  border-color: var(--siren-deep);
+}
+
+.choice:has(input:checked) {
+  border-color: var(--siren-deep);
+  background: rgb(0 186 210 / 0.12);
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--btn-bg);
+}
+
+.other-text,
+textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: var(--fs-16);
+  color: var(--siren-deep);
+  background: var(--bg);
+  border: var(--bw-thin) solid var(--siren-deep);
+  border-radius: var(--r-sm);
+}
+
+.other-text:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--siren-wave);
+  box-shadow: 0 0 0 3px rgb(0 187 211 / 0.25);
+}
+
+.other-text {
+  flex: 1;
+  min-width: 0;
+  padding: var(--sp-1) var(--sp-2);
+}
+
+textarea {
+  display: block;
+  padding: 10px 12px;
+  resize: vertical;
+}
+
+/* ---- Grid -------------------------------------------------------------- */
+
+.grid {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-14);
+}
+
+.grid th,
+.grid td {
+  padding: var(--sp-2);
+  text-align: center;
+  border-bottom: var(--bw-thin) solid var(--border);
+}
+
+.grid thead th {
+  font-family: var(--font-accent);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  vertical-align: bottom;
+}
+
+.grid tbody th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--siren-deep);
+}
+
+.grid label {
+  display: inline-flex;
+  padding: var(--sp-2);
+  cursor: pointer;
+}
+
+.grid-opt {
+  display: none;
+}
+
+/* On narrow screens each grid row becomes a stacked list of choices. */
+@media (max-width: 720px) {
+  .grid thead {
+    display: none;
+  }
+  .grid,
+  .grid tbody,
+  .grid tr,
+  .grid th,
+  .grid td {
+    display: block;
+    width: 100%;
+  }
+  .grid tr {
+    padding: var(--sp-3) 0;
+    border-bottom: var(--bw-thin) solid var(--border);
+  }
+  .grid th,
+  .grid td {
+    border: 0;
+    padding: 0;
+    text-align: left;
+  }
+  .grid tbody th {
+    margin-bottom: var(--sp-2);
+    font-size: var(--fs-16);
+  }
+  .grid label {
+    display: flex;
+    gap: var(--sp-3);
+    padding: var(--sp-1) 0;
+  }
+  .grid-opt {
+    display: inline;
+  }
+}
+
+/* ---- Buttons ----------------------------------------------------------- */
+
+.submit-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--sp-4);
+  margin-top: var(--sp-5);
+}
+
+/* Matches .btn in the design system (live sandiegosirens.com CTA). */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  border: 0;
+  border-radius: var(--btn-radius);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-16);
+  letter-spacing: var(--btn-tracking);
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--siren-deep);
+}
+
+.btn-primary:hover {
+  background: #0c2a55;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--siren-deep);
+  border: 1.5px solid var(--siren-deep);
+  padding: calc(var(--btn-pad-y) - 1.5px) calc(var(--btn-pad-x) - 1.5px);
+}
+
+.btn-ghost:hover {
+  background: var(--siren-deep);
+  color: var(--siren-white);
+}
+
+@media (max-width: 480px) {
+  .submit-row .btn {
+    width: 100%;
+  }
+}
+
+/* ---- Done -------------------------------------------------------------- */
+
+.done {
+  padding: var(--sp-6);
+  border: var(--bw-med) solid var(--siren-deep);
+  border-radius: var(--r-md);
+  background: var(--bg);
+  outline: none;
+}
+
+.done h2 {
+  margin-bottom: var(--sp-3);
+}
+
+.done-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin: var(--sp-4) 0;
+}
+
+.response-json {
+  max-height: 320px;
+  overflow: auto;
+  padding: var(--sp-4);
+  border-radius: var(--r-sm);
+  background: var(--bg-alt);
+  font-size: var(--fs-12);
+}
+
+/* ---- Footer ------------------------------------------------------------ */
+
+.foot {
+  margin-top: var(--sp-7);
+  padding-top: var(--sp-4);
+  border-top: var(--bw-chunky) solid var(--siren-deep);
+  font-family: var(--font-accent);
+  font-size: var(--fs-12);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}

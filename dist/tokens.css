@@ -1,0 +1,141 @@
+/* ============================================================
+   SAN DIEGO SIRENS — Design Tokens
+   SD Wave FC Supporters Group. Est. 2022.
+   Palette + voice sourced from sandiegosirens.com/logo
+   "Deep brooding blue, bright sky, sea green, warm grays."
+   ============================================================ */
+
+/* Brand font — provided directly by the SDS team (variable) */
+@font-face {
+  font-family: "Roboto Slab";
+  src: url("fonts/RobotoSlab-VariableFont_wght.ttf") format("truetype-variations"),
+       url("fonts/RobotoSlab-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* --- Core palette (from official brand guide — Pantone-accurate) --- */
+  --siren-deep:      #091F40;   /* Pantone 282 C — brooding blue, the vast ocean */
+  --siren-wave:      #00BAD2;   /* Pantone 3115 C — wave tops & sky */
+  --siren-sea:       #0D8876;   /* Pantone 327 C — sea green, mid-tone */
+  --siren-warm-black:#1F1F1F;   /* Custom Warm Black — body copy */
+  --siren-warm-gray: #636363;   /* Custom Warm Gray — meta text */
+  --siren-sand:      #F3EFE6;   /* warm off-white ground (supporting) */
+  --siren-white:     #FFFFFF;
+
+  /* legacy aliases for existing markup */
+  --siren-fog:       var(--siren-warm-gray);
+
+  /* --- Seasonal accent (editorial only — press-kit graphics) --- */
+  --accent-pink:     #E82176;   /* press-kit siren song */
+  --accent-orange:   #FAA21B;   /* press-kit sunset */
+  --accent-yellow:   #FFD447;   /* press-kit flare */
+
+  /* Neutrals (warm, not cool grays) */
+  --ink-100: #F3EFE6;
+  --ink-200: #E3DCCE;
+  --ink-300: #B9B1A3;
+  --ink-500: var(--siren-warm-gray);
+  --ink-700: #3E3B37;
+  --ink-900: var(--siren-warm-black);
+
+  /* Semantic */
+  --bg:            var(--siren-white);
+  --bg-alt:        var(--siren-sand);
+  --text:          var(--siren-warm-black);
+  --text-soft:     var(--siren-warm-gray);
+  --border:        var(--ink-200);
+  --border-strong: var(--siren-deep);
+  --accent:        var(--siren-wave);
+  --link:          var(--siren-sea);
+
+  /* Button — sourced from the live site CTA (rgb(5,130,147) on white) */
+  --btn-bg:        #058293;
+  --btn-bg-hover:  #046b79;
+  --btn-fg:        #FFFFFF;
+  --btn-radius:    6.4px;
+  --btn-pad-y:     14px;
+  --btn-pad-x:     22px;
+  --btn-tracking:  0.02em;
+
+  /* --- Type ---
+     Official families (per brand guide):
+       Display wordmark    → Vista Slab SC-Med (treated as display when large)
+       Headline / subhead  → Vista Slab SC-Med (small caps)
+       Body / editorial    → Vista Slab Alt Light (reg + italic)
+     The SIRENS wordmark itself is always used as artwork — we don't
+     re-typeset it in web type. Web fallbacks shown below. */
+  --font-display: "Vista Slab SC", "Roboto Slab", ui-serif, Georgia, serif;  /* large display (not the wordmark) */
+  --font-heading: "Vista Slab SC", "Roboto Slab", ui-serif, Georgia, serif;  /* H1–H3 small caps */
+  --font-body:    "Vista Slab Alt", "Lora", "Aileron", Georgia, serif;       /* body + editorial */
+  --font-serif:   "Vista Slab Alt", "Lora", Georgia, serif;                  /* pull quotes */
+  --font-accent:  "Vista Slab SC", "Roboto Slab", serif;                     /* small caps, UI labels */
+
+  /* Type scale */
+  --fs-12: 0.75rem;
+  --fs-14: 0.875rem;
+  --fs-16: 1rem;
+  --fs-18: 1.125rem;
+  --fs-20: 1.25rem;
+  --fs-24: 1.5rem;
+  --fs-32: 2rem;
+  --fs-40: 2.5rem;
+  --fs-56: 3.5rem;
+  --fs-80: 5rem;
+  --fs-120: 7.5rem;
+
+  /* Spacing (4px base) */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 96px;
+
+  /* Radii — mostly flat */
+  --r-sm: 2px; --r-md: 4px; --r-lg: 8px; --r-pill: 999px;
+
+  /* Borders — thicker for supporters energy */
+  --bw-thin: 1px; --bw-med: 2px; --bw-thick: 3px; --bw-chunky: 4px;
+
+  /* Shadow */
+  --sh-soft: 0 1px 2px rgba(6,31,63,0.08), 0 12px 28px rgba(6,31,63,0.08);
+  --sh-sticker: none; /* @kind shadow */ /* retired — no drop-shadow in brand */
+}
+
+/* ============================================================
+   Base + utilities
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-16);
+  line-height: 1.55;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Wave linework — signature motif */
+.wave-rule {
+  display: block;
+  width: 100%;
+  height: 28px;
+  color: var(--siren-deep);
+}
+.wave-rule svg { width: 100%; height: 100%; display: block; }
+
+/* Checker — on press-kit graphics only */
+.bg-checker {
+  --c1: var(--siren-wave);
+  --c2: var(--siren-deep);
+  --sz: 40px;
+  background-image:
+    linear-gradient(45deg, var(--c2) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--c2) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--c2) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--c2) 75%);
+  background-size: var(--sz) var(--sz);
+  background-position: 0 0, 0 calc(var(--sz)/2), calc(var(--sz)/2) calc(-1*var(--sz)/2), calc(-1*var(--sz)/2) 0;
+  background-color: var(--c1);
+}
