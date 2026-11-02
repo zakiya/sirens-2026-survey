@@ -122,7 +122,7 @@ window.SURVEY = {
           type: "grid",
           label: "How do you feel about the following?",
           items: [
-            "Watch parties",
+            "Sirens watch parties",
             "Tailgates",
             "Drums and chants",
             "Discord",
