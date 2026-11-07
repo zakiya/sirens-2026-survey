@@ -19,6 +19,36 @@
   document.title = survey.title;
   document.getElementById("intro").innerHTML = survey.intro.map((p) => `<p>${p}</p>`).join("");
 
+  // ---- Closing ------------------------------------------------------------
+
+  const CLOSED_ERROR = "Survey closed.";
+
+  function isClosed() {
+    if (new URLSearchParams(location.search).has("closed")) return true;
+    if (!survey.closesAt) return false;
+    const closesAt = new Date(survey.closesAt);
+    return !isNaN(closesAt) && Date.now() >= closesAt.getTime();
+  }
+
+  function showClosed() {
+    const closed = document.getElementById("closed");
+    document.getElementById("closed-message").innerHTML = (survey.closedMessage || [])
+      .map((p) => `<p>${p}</p>`)
+      .join("");
+    form.hidden = true;
+    done.hidden = true;
+    document.getElementById("intro").hidden = true;
+    document.querySelector(".progress").hidden = true;
+    closed.hidden = false;
+    window.scrollTo({ top: 0 });
+    closed.focus();
+  }
+
+  if (isClosed()) {
+    showClosed();
+    return;
+  }
+
   // ---- Rendering ----------------------------------------------------------
 
   const el = (tag, attrs = {}, ...children) => {
@@ -319,6 +349,8 @@
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    // The page may have been left open past the closing time.
+    if (isClosed()) return showClosed();
     let firstInvalid = null;
     questionNodes.forEach((entry) => {
       const { q, node, section } = entry;
@@ -340,6 +372,7 @@
       try {
         await send(response);
       } catch (err) {
+        if (err.message === CLOSED_ERROR) return showClosed();
         console.error("Survey submission failed", err);
         submitError.textContent =
           "Sorry, we couldn't submit your response. Your answers are saved in this browser — please try again in a moment.";

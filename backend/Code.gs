@@ -13,6 +13,10 @@ const SURVEY_ID = "sirens-2026";
 const SHEET_NAME = "Responses";
 const MAX_COLUMNS = 150;
 const MAX_CELL_LENGTH = 5000;
+// Reject responses after this time, matching `closesAt` in dist/survey.js
+// (e.g. "2026-12-15T23:59:59-08:00"). Leave empty to keep accepting responses.
+// The site also checks this, but only the server check can't be bypassed.
+const CLOSES_AT = "";
 
 const FIXED_START = ["Received", "Submitted (browser time)"];
 const FIXED_END = ["Raw JSON"];
@@ -22,6 +26,8 @@ function doPost(e) {
   try {
     const body = JSON.parse((e && e.postData && e.postData.contents) || "{}");
     if (body.survey !== SURVEY_ID) throw new Error("Unknown survey.");
+    // The site matches this exact message to show its "closed" page.
+    if (CLOSES_AT && Date.now() >= new Date(CLOSES_AT).getTime()) throw new Error("Survey closed.");
     if (!Array.isArray(body.columns) || typeof body.row !== "object" || !body.row) {
       throw new Error("Malformed response.");
     }

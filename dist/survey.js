@@ -22,6 +22,14 @@ window.SURVEY = {
   // Google Apps Script web app URL (see backend/README.md). Leave empty to skip sending:
   // responses are then shown as JSON for copying or download instead.
   endpoint: "https://script.google.com/macros/s/AKfycbyQhQmDb9364a2Yl3IMm8REDvrmUoJajR9EOqq08pw6bJLAcj8otvOjlhO7VKABE0g3gQ/exec",
+  // When the survey stops accepting responses. Use a full date-time with the Pacific
+  // offset, e.g. "2026-12-15T23:59:59-08:00" (-08:00 in winter, -07:00 in summer).
+  // Leave empty to keep the survey open. Add ?closed to the URL to preview the closed page.
+  closesAt: "",
+  closedMessage: [
+    "Thank you to everyone who responded. We'll share the anonymized results soon.",
+    'Email <a href="mailto:contact@sandiegosirens.com">contact@sandiegosirens.com</a> with questions or late feedback.',
+  ],
   intro: [
     "We invite our 2026 Sirens members to fill out this survey. Your feedback helps us plan next season and advocate for supporters with Wave FC.",
     "Anonymized responses will be published publicly with names and identifying details removed. Complete responses are shared with the Sirens Officer Group.",
