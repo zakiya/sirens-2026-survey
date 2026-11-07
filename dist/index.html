@@ -40,12 +40,15 @@
 
       <section id="done" class="done" hidden tabindex="-1">
         <h2>Thank you!</h2>
-        <p>Your response has been recorded in this browser. Responses aren't sent anywhere yet, so please copy or download it below.</p>
-        <div class="done-actions">
-          <button type="button" id="copy" class="btn btn-ghost">Copy response</button>
-          <a id="download" class="btn btn-ghost" download="sirens-2026-response.json">Download JSON</a>
+        <p id="done-sent">Your response has been submitted. We appreciate you taking the time.</p>
+        <div id="done-local">
+          <p>Your response has been recorded in this browser. Responses aren't sent anywhere yet, so please copy or download it below.</p>
+          <div class="done-actions">
+            <button type="button" id="copy" class="btn btn-ghost">Copy response</button>
+            <a id="download" class="btn btn-ghost" download="sirens-2026-response.json">Download JSON</a>
+          </div>
+          <pre id="response-json" class="response-json"></pre>
         </div>
-        <pre id="response-json" class="response-json"></pre>
       </section>
 
       <footer class="foot">

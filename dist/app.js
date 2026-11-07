@@ -276,7 +276,48 @@
     return { survey: "sirens-2026", submittedAt: new Date().toISOString(), answers: out };
   }
 
-  form.addEventListener("submit", (e) => {
+  // Flattens a response into spreadsheet columns. `columns` covers every question in
+  // survey order (answered or not) so the sheet's header row stays stable.
+  function toSheetRow(response) {
+    const columns = [];
+    const row = {};
+    const header = (q, suffix) => `${q.id}. ${q.label}${suffix ? ` — ${suffix}` : ""}`;
+    questionNodes.forEach(({ q }) => {
+      const value = response.answers[q.id];
+      if (q.type === "grid") {
+        q.items.forEach((item) => {
+          const h = header(q, item);
+          columns.push(h);
+          if (value && value[item]) row[h] = value[item];
+        });
+      } else {
+        const h = header(q);
+        columns.push(h);
+        if (value != null) row[h] = Array.isArray(value) ? value.join("; ") : value;
+      }
+      if (q.other) {
+        const h = header(q, "Other");
+        columns.push(h);
+        if (response.answers[`${q.id}_other`]) row[h] = response.answers[`${q.id}_other`];
+      }
+    });
+    return { ...response, columns, row };
+  }
+
+  async function send(response) {
+    const res = await fetch(survey.endpoint, {
+      method: "POST",
+      // text/plain keeps this a "simple" request, so Apps Script doesn't need to answer a CORS preflight.
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(toSheetRow(response)),
+    });
+    const result = await res.json();
+    if (!result.ok) throw new Error(result.error || "Submission failed");
+  }
+
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     let firstInvalid = null;
     questionNodes.forEach((entry) => {
@@ -292,15 +333,33 @@
     }
 
     const response = buildResponse();
-    // No backend yet: the response is logged and shown so it can be collected manually.
-    console.log("Survey response", response);
+
+    if (survey.endpoint) {
+      submitButton.disabled = true;
+      submitButton.textContent = "Submitting…";
+      try {
+        await send(response);
+      } catch (err) {
+        console.error("Survey submission failed", err);
+        submitError.textContent =
+          "Sorry, we couldn't submit your response. Your answers are saved in this browser — please try again in a moment.";
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit survey";
+        return;
+      }
+      document.getElementById("done-local").hidden = true;
+    } else {
+      // No backend configured: show the response so it can be collected manually.
+      console.log("Survey response", response);
+      const json = JSON.stringify(response, null, 2);
+      document.getElementById("response-json").textContent = json;
+      document.getElementById("download").href = URL.createObjectURL(
+        new Blob([json], { type: "application/json" })
+      );
+      document.getElementById("done-sent").hidden = true;
+    }
     clearDraft();
 
-    const json = JSON.stringify(response, null, 2);
-    document.getElementById("response-json").textContent = json;
-    document.getElementById("download").href = URL.createObjectURL(
-      new Blob([json], { type: "application/json" })
-    );
     form.hidden = true;
     document.querySelector(".progress").hidden = true;
     done.hidden = false;

@@ -19,6 +19,9 @@ const SATISFACTION = [
 
 window.SURVEY = {
   title: "2026 Sirens Member Survey",
+  // Google Apps Script web app URL (see backend/README.md). Leave empty to skip sending:
+  // responses are then shown as JSON for copying or download instead.
+  endpoint: "",
   intro: [
     "We invite our 2026 Sirens members to fill out this survey. Your feedback helps us plan next season and advocate for supporters with Wave FC.",
     "Anonymized responses will be published publicly with names and identifying details removed. Complete responses are shared with the Sirens Officer Group.",
