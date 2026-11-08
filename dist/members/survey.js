@@ -96,7 +96,7 @@ window.SURVEY = {
         {
           id: "B2",
           type: "text",
-          label: "What else would you like to share about your experience with the Wave front office this year?",
+          label: "What else would you like to share about your experience with the Wave's staff, communication, and other fan services this year?",
         },
       ],
     },
