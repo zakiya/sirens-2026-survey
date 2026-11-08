@@ -7,6 +7,8 @@
 //   grid     – one single-choice row per item, shared answer scale
 //
 // `showIf(answers)` on a section or question hides it until it returns true.
+// `gate` hides every other question until the gate question has an allowed answer,
+// and shows `message` instead when it has any other answer.
 // Hidden questions are left out of the submitted response.
 
 const SATISFACTION = [
@@ -25,11 +27,19 @@ window.SURVEY = {
   // When the survey stops accepting responses. Use a full date-time with the Pacific
   // offset, e.g. "2026-12-15T23:59:59-08:00" (-08:00 in winter, -07:00 in summer).
   // Leave empty to keep the survey open. Add ?closed to the URL to preview the closed page.
-  closesAt: "",
+  closesAt: "2026-11-21T23:59:59-08:00",
   closedMessage: [
     "Thank you to everyone who responded. We'll share the anonymized results soon.",
     'Email <a href="mailto:contact@sandiegosirens.com">contact@sandiegosirens.com</a> with questions or late feedback.',
   ],
+  gate: {
+    question: "A1",
+    allow: ["Yes", "Not sure"],
+    message: [
+      "This survey is for 2026 Sirens members only. Consider joining us in 2027.",
+      'Sign up for the newsletter <a href="https://sandiegosirens.us5.list-manage.com/subscribe?u=f67432ccb805163e0383c7726&amp;id=b6dcf05d3b">here</a>.',
+    ],
+  },
   intro: [
     "We invite our 2026 Sirens members to fill out this survey. Your feedback helps us plan next season and advocate for supporters with Wave FC.",
     "Anonymized responses will be published publicly with names and identifying details removed. Complete responses are shared with the Sirens Officer Group.",

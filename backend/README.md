@@ -10,10 +10,10 @@ Survey responses are appended as rows to a Google Sheet by a small Apps Script w
    - **Execute as:** Me
    - **Who has access:** Anyone
 4. Authorize the script when prompted (it only needs access to this spreadsheet).
-5. Copy the **Web app URL** (ends in `/exec`). Opening it in a browser should show `{"ok":true,"survey":"sirens-2026"}`.
+5. Copy the **Web app URL** (ends in `/exec`). Opening it in a browser should show `{"ok":true,"surveys":["sirens-2026","sirens-2026-nonmember"]}`.
 6. Paste the URL into `endpoint` in [dist/survey.js](../dist/survey.js), commit and push.
 
-The first response creates a **Responses** tab with a header row: received time, browser time, one column per question (grid rows and "Other" text get their own columns), and the full response as raw JSON.
+The first response creates a **Responses** tab (member survey) or **Non-member responses** tab (non-member survey at `/community/`), each with a header row: received time, browser time, one column per question (grid rows and "Other" text get their own columns), and the full response as raw JSON.
 
 ## Updating the script
 

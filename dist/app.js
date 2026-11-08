@@ -1,6 +1,8 @@
 (function () {
   const survey = window.SURVEY;
-  const DRAFT_KEY = "sirens-2026-survey-draft";
+  // Each survey version has its own id, so drafts and sheet tabs don't mix.
+  const SURVEY_ID = survey.id || "sirens-2026";
+  const DRAFT_KEY = `${SURVEY_ID}-survey-draft`;
   const OTHER = "Other";
   const HINTS = {
     single: "Choose one.",
@@ -85,6 +87,15 @@
     sectionNodes.push({ section, node });
   });
 
+  // Shown instead of the rest of the survey when the gate question rules someone out.
+  const gateMessage = survey.gate
+    ? el("div", { class: "done gate-message", role: "status", hidden: true })
+    : null;
+  if (gateMessage) {
+    gateMessage.innerHTML = survey.gate.message.map((p) => `<p>${p}</p>`).join("");
+    form.insertBefore(gateMessage, form.querySelector(".submit-row"));
+  }
+
   function renderQuestion(q) {
     const legend = el(
       "legend",
@@ -95,7 +106,8 @@
     const hint = el(
       "p",
       { class: "q-hint", id: `hint-${q.id}` },
-      HINTS[q.type],
+      // A required text question shouldn't also say "Optional."
+      q.type === "text" && q.required ? "" : HINTS[q.type],
       q.required && el("span", { class: "q-required", text: "* Required" })
     );
     const field = el(
@@ -253,7 +265,17 @@
     return ok;
   }
 
+  // With a `gate`, only the gate question shows until it has an allowed answer.
+  function gateOpen() {
+    return !survey.gate || survey.gate.allow.includes(answers[survey.gate.question]);
+  }
+
+  function gateClosed() {
+    return !!survey.gate && !!answers[survey.gate.question] && !gateOpen();
+  }
+
   function isVisible(q, section) {
+    if (survey.gate && q.id !== survey.gate.question && !gateOpen()) return false;
     if (section.showIf && !section.showIf(answers)) return false;
     if (q.showIf && !q.showIf(answers)) return false;
     return true;
@@ -261,11 +283,13 @@
 
   function updateVisibility() {
     sectionNodes.forEach(({ section, node }) => {
-      node.hidden = !!section.showIf && !section.showIf(answers);
+      node.hidden = !section.questions.some((q) => isVisible(q, section));
     });
     questionNodes.forEach(({ q, node, section }) => {
       node.hidden = !isVisible(q, section);
     });
+    if (gateMessage) gateMessage.hidden = !gateClosed();
+    form.querySelector(".submit-row").hidden = !gateOpen();
   }
 
   function isAnswered(q) {
@@ -313,7 +337,7 @@
       const other = (answers[`${q.id}_other`] || "").trim();
       if (q.other && other) out[`${q.id}_other`] = other;
     });
-    return { survey: "sirens-2026", submittedAt: new Date().toISOString(), answers: out };
+    return { survey: SURVEY_ID, submittedAt: new Date().toISOString(), answers: out };
   }
 
   // Flattens a response into spreadsheet columns. `columns` covers every question in
@@ -361,6 +385,7 @@
     e.preventDefault();
     // The page may have been left open past the closing time.
     if (isClosed()) return showClosed();
+    if (!gateOpen()) return;
     let firstInvalid = null;
     questionNodes.forEach((entry) => {
       const { q, node, section } = entry;

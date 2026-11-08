@@ -430,6 +430,14 @@ textarea {
   outline: none;
 }
 
+.gate-message p:first-child {
+  margin-top: 0;
+}
+
+.gate-message p:last-child {
+  margin-bottom: 0;
+}
+
 .done h2 {
   margin-bottom: var(--sp-3);
 }
