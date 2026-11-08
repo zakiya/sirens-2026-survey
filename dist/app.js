@@ -19,7 +19,24 @@
 
   document.getElementById("title").textContent = survey.title;
   document.title = survey.title;
-  document.getElementById("intro").innerHTML = survey.intro.map((p) => `<p>${p}</p>`).join("");
+  document.getElementById("intro").innerHTML = introParagraphs().map((p) => `<p>${p}</p>`).join("");
+
+  // Adds the closing date (from `closesAt`) after the first intro paragraph.
+  function introParagraphs() {
+    const paras = [...survey.intro];
+    const closesAt = survey.closesAt && new Date(survey.closesAt);
+    if (!closesAt || isNaN(closesAt)) return paras;
+    const when = closesAt.toLocaleString("en-US", {
+      timeZone: "America/Los_Angeles",
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    });
+    paras.splice(1, 0, `<strong>The survey closes ${when} Pacific.</strong>`);
+    return paras;
+  }
 
   // ---- Closing ------------------------------------------------------------
 
@@ -119,7 +136,7 @@
 
     if (q.type === "single") field.append(choiceList(q, "radio"));
     if (q.type === "multi") field.append(choiceList(q, "checkbox"));
-    if (q.type === "text") field.append(textArea(q.id, q.label));
+    if (q.type === "text") field.append(textArea(q.id, q.label, q.rows));
     if (q.type === "grid") field.append(grid(q));
     if (q.required) field.append(el("p", { class: "q-error", id: `err-${q.id}`, role: "alert" }));
     return field;
@@ -204,8 +221,8 @@
     setAnswer(q.id, q.options.filter((o) => selected.has(o)));
   }
 
-  function textArea(key, label) {
-    const area = el("textarea", { rows: 4, "aria-label": label });
+  function textArea(key, label, rows = 4) {
+    const area = el("textarea", { rows, "aria-label": label });
     area.value = answers[key] || "";
     area.addEventListener("input", () => setAnswer(key, area.value));
     return area;

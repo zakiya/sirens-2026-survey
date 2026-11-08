@@ -3,7 +3,7 @@
 // Question types:
 //   single   – radio buttons
 //   multi    – checkboxes (select all that apply)
-//   text     – free-text textarea
+//   text     – free-text textarea (`rows` sets its height, default 4)
 //   grid     – one single-choice row per item, shared answer scale
 //
 // `showIf(answers)` on a section or question hides it until it returns true.
@@ -26,7 +26,7 @@ window.SURVEY = {
   endpoint: "https://script.google.com/macros/s/AKfycbyQhQmDb9364a2Yl3IMm8REDvrmUoJajR9EOqq08pw6bJLAcj8otvOjlhO7VKABE0g3gQ/exec",
   // When the survey stops accepting responses. Use a full date-time with the Pacific
   // offset, e.g. "2026-12-15T23:59:59-08:00" (-08:00 in winter, -07:00 in summer).
-  // Leave empty to keep the survey open. Add ?closed to the URL to preview the closed page.
+  // The date is shown in the intro automatically. Leave empty to keep the survey open. Add ?closed to the URL to preview the closed page.
   closesAt: "2026-11-21T23:59:59-08:00",
   closedMessage: [
     "Thank you to everyone who responded. We'll share the anonymized results soon.",
@@ -220,6 +220,12 @@ window.SURVEY = {
           id: "F1",
           type: "text",
           label: "What else would you like to share about the Sirens or the Wave this year?",
+        },
+        {
+          id: "F2",
+          type: "text",
+          rows: 2,
+          label: "If you're open to us following up about your responses, how can we reach you? Share your name and email or phone number.",
         },
       ],
     },
