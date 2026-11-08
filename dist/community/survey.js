@@ -1,4 +1,4 @@
-// Community version of the survey, served at /community/. Same format as ../survey.js;
+// Community version of the survey, served at /community/. Same format as ../members/survey.js;
 // ../app.js renders it. Responses go to the same endpoint, and the backend writes them
 // to a separate sheet tab based on `id`.
 
@@ -14,7 +14,7 @@ window.SURVEY = {
   id: "sirens-2026-community",
   title: "2026 Sirens Community Survey",
   endpoint: "https://script.google.com/macros/s/AKfycbyQhQmDb9364a2Yl3IMm8REDvrmUoJajR9EOqq08pw6bJLAcj8otvOjlhO7VKABE0g3gQ/exec",
-  // See ../survey.js. Add ?closed to the URL to preview the closed page.
+  // See ../members/survey.js. Add ?closed to the URL to preview the closed page.
   closesAt: "2026-11-21T23:59:59-08:00",
   closedMessage: [
     "Thank you to everyone who responded. We'll share the anonymized results soon.",

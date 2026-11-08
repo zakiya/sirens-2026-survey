@@ -16,7 +16,7 @@ const SHEETS = {
 };
 const MAX_COLUMNS = 150;
 const MAX_CELL_LENGTH = 5000;
-// Reject responses after this time, matching `closesAt` in dist/survey.js
+// Reject responses after this time, matching `closesAt` in dist/members/survey.js and dist/community/survey.js
 // (e.g. "2026-12-15T23:59:59-08:00"). Leave empty to keep accepting responses.
 // The site also checks this, but only the server check can't be bypassed.
 const CLOSES_AT = "2026-11-21T23:59:59-08:00";

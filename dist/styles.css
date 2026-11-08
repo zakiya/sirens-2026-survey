@@ -430,6 +430,25 @@ textarea {
   outline: none;
 }
 
+/* Landing page that links to each survey. */
+.survey-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.survey-card {
+  margin: 0 0 var(--sp-4);
+  padding: var(--sp-5);
+  border: var(--bw-thin) solid var(--siren-deep);
+  border-radius: var(--r-md);
+  background: var(--bg);
+}
+
+.survey-card p {
+  margin: var(--sp-2) 0 var(--sp-4);
+}
+
 .gate-message p:first-child {
   margin-top: 0;
 }
