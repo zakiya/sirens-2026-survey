@@ -66,10 +66,8 @@ window.SURVEY = {
           // 200 and 300 levels are usually closed for Wave matches, so they aren't listed.
           options: [
             "Supporters section (137–139)",
-            "Another 100-level section (101–123, 133–141)",
-            "Club seats (Spectrum Business, Dos Equis or SDZWA Club)",
-            "Loge box or suite",
-            "Pitchside Club or field seats",
+            "Standard seating (101–123, 133–136, 140–141)",
+            "Club (C106–C108, 124–132), Loge, or Field seats",
           ],
           other: true,
         },

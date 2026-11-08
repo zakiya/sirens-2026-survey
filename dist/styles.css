@@ -234,6 +234,11 @@ h2 {
   background: rgb(0 186 210 / 0.12);
 }
 
+/* Warm gray is 5.9:1 on white and about 5.4:1 on the selected tint (AA needs 4.5:1). */
+.choice-meta {
+  color: var(--text-soft);
+}
+
 input[type="radio"],
 input[type="checkbox"] {
   flex: none;

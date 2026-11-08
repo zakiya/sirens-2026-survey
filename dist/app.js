@@ -120,7 +120,7 @@
       const checked = kind === "radio" ? answers[q.id] === opt : (answers[q.id] || []).includes(opt);
       const input = el("input", { type: kind, id, name: q.id, value: opt, checked });
       input.addEventListener("change", () => onChoice(q, kind, opt, input.checked));
-      list.append(el("label", { class: "choice", for: id }, input, el("span", { text: opt })));
+      list.append(el("label", { class: "choice", for: id }, input, choiceText(opt)));
     });
     if (q.other) {
       const id = `${q.id}-other`;
@@ -155,6 +155,16 @@
       list.append(el("label", { class: "choice choice-other", for: id }, input, text));
     }
     return list;
+  }
+
+  // Shows parentheticals such as section numbers in a softer color.
+  function choiceText(opt) {
+    const span = el("span");
+    opt.split(/(\([^)]*\))/).forEach((part) => {
+      if (!part) return;
+      span.append(part.startsWith("(") ? el("span", { class: "choice-meta", text: part }) : part);
+    });
+    return span;
   }
 
   function onChoice(q, kind, opt, checked) {
