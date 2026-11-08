@@ -1,4 +1,4 @@
-// Non-member version of the survey, served at /community/. Same format as ../survey.js;
+// Community version of the survey, served at /community/. Same format as ../survey.js;
 // ../app.js renders it. Responses go to the same endpoint, and the backend writes them
 // to a separate sheet tab based on `id`.
 
@@ -11,7 +11,7 @@ const SATISFACTION = [
 ];
 
 window.SURVEY = {
-  id: "sirens-2026-nonmember",
+  id: "sirens-2026-community",
   title: "2026 Sirens Community Survey",
   endpoint: "https://script.google.com/macros/s/AKfycbyQhQmDb9364a2Yl3IMm8REDvrmUoJajR9EOqq08pw6bJLAcj8otvOjlhO7VKABE0g3gQ/exec",
   // See ../survey.js. Add ?closed to the URL to preview the closed page.

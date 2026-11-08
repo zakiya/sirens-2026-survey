@@ -11,8 +11,8 @@
 
 // Each survey version (its `id` in survey.js) writes to its own tab.
 const SHEETS = {
-  "sirens-2026": "Responses",
-  "sirens-2026-nonmember": "Non-member responses",
+  "sirens-2026": "Member responses",
+  "sirens-2026-community": "Community responses",
 };
 const MAX_COLUMNS = 150;
 const MAX_CELL_LENGTH = 5000;
