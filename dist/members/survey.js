@@ -123,7 +123,7 @@ window.SURVEY = {
         {
           id: "C2",
           type: "text",
-          label: "What accessibility accommodations would improve game day?",
+          label: "What other accessibility accommodations would improve game day?",
         },
         {
           id: "C3",
@@ -183,6 +183,11 @@ window.SURVEY = {
       id: "E",
       title: "Membership and community",
       questions: [
+        {
+          id: "E0",
+          type: "text",
+          label: "Why did you join the Sirens?",
+        },
         {
           id: "E1",
           type: "single",
