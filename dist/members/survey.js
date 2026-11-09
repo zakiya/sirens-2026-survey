@@ -115,10 +115,10 @@ window.SURVEY = {
             "Shuttle service",
             "Closed captioning",
             "Quiet room",
-            "None",
+            "None of the above",
           ],
           other: true,
-          exclusive: ["None"],
+          exclusive: ["None of the above"],
         },
         {
           id: "C2",
