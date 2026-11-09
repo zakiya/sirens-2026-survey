@@ -230,7 +230,7 @@ window.SURVEY = {
           id: "F2",
           type: "text",
           rows: 2,
-          label: "If you're open to us following up about your responses, how can we reach you? Share your name and email or phone number.",
+          label: "Enter your name and contact information if you're okay with us following up about your responses.",
         },
       ],
     },
