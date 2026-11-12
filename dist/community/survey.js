@@ -126,7 +126,7 @@ window.SURVEY = {
           id: "F2",
           type: "text",
           rows: 2,
-          label: "Enter your name and contact information if you're okay with us following up about your responses.",
+          label: "Please share your name and contact info if you’re open to us following up about your responses.",
         },
       ],
     },

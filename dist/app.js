@@ -124,7 +124,7 @@
       "p",
       { class: "q-hint", id: `hint-${q.id}` },
       // A required text question shouldn't also say "Optional."
-      q.type === "text" && q.required ? "" : HINTS[q.type],
+      q.type === "text" && q.required ? "" : q.max ? `Select up to ${q.max}.` : HINTS[q.type],
       q.required && el("span", { class: "q-required", text: "* Required" })
     );
     const field = el(
@@ -221,6 +221,20 @@
     setAnswer(q.id, q.options.filter((o) => selected.has(o)));
   }
 
+  // For multi questions with `max`: once that many are picked (a filled-in "Other"
+  // counts as one), the unchecked options are disabled until one is cleared.
+  function applyMax({ q, node }) {
+    if (q.type !== "multi" || !q.max) return;
+    const count =
+      (answers[q.id] || []).length + ((answers[`${q.id}_other`] || "").trim() ? 1 : 0);
+    node.querySelectorAll(`input[name="${q.id}"]`).forEach((box) => {
+      box.disabled = !box.checked && count >= q.max;
+      if (box.value === "__other") {
+        box.parentNode.querySelector(".other-text").disabled = box.disabled;
+      }
+    });
+  }
+
   function textArea(key, label, rows = 4) {
     const area = el("textarea", { rows, "aria-label": label });
     area.value = answers[key] || "";
@@ -269,6 +283,7 @@
     saveDraft();
     updateVisibility();
     updateProgress();
+    questionNodes.forEach(applyMax);
     // Once a question has been flagged, clear the flag as soon as it's answered.
     questionNodes.forEach((entry) => {
       if (entry.node.classList.contains("invalid")) checkRequired(entry);
@@ -463,4 +478,5 @@
 
   updateVisibility();
   updateProgress();
+  questionNodes.forEach(applyMax);
 })();
