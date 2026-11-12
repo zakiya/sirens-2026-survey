@@ -85,7 +85,7 @@ window.SURVEY = {
         {
           id: "E2",
           type: "text",
-          label: "Was there anything the Sirens could have reasonably done differently that might have influenced your decision to renew?",
+          label: "Is there anything the Sirens could realistically have done to change your decision?",
         },
         {
           id: "E3",
