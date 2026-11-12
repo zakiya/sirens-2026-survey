@@ -21,7 +21,7 @@
   document.title = survey.title;
   document.getElementById("intro").innerHTML = introParagraphs().map((p) => `<p>${p}</p>`).join("");
 
-  // Adds the closing date (from `closesAt`) after the first intro paragraph.
+  // Adds the closing date (from `closesAt`) as the last intro paragraph.
   function introParagraphs() {
     const paras = [...survey.intro];
     const closesAt = survey.closesAt && new Date(survey.closesAt);
@@ -34,7 +34,7 @@
       hour: "numeric",
       minute: "2-digit",
     });
-    paras.splice(1, 0, `<strong>The survey closes ${when} Pacific.</strong>`);
+    paras.push(`<strong>The survey closes ${when} Pacific.</strong>`);
     return paras;
   }
 

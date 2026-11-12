@@ -43,7 +43,6 @@ window.SURVEY = {
   intro: [
     "We invite our 2026 Sirens members to fill out this survey. Your feedback helps us plan next season and advocate for supporters with Wave FC.",
     "Anonymized responses will be published publicly with names and identifying details removed. Complete responses are shared with the Sirens Officer Group.",
-    'Email <a href="mailto:contact@sandiegosirens.com">contact@sandiegosirens.com</a> with questions or concerns.',
   ],
   sections: [
     {

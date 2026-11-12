@@ -21,9 +21,9 @@ window.SURVEY = {
     'Email <a href="mailto:contact@sandiegosirens.com">contact@sandiegosirens.com</a> with questions or late feedback.',
   ],
   intro: [
-    "We invite you to fill out this year's community survey. Your feedback helps us plan next season and advocate for supporters with Wave FC.",
+    "You were a Sirens member in 2025, and we noticed you did not renew your membership for 2026. We’d like to better understand what influenced that decision.",
+    "Your feedback will help us to understand what members value, where we can improve, and what might make membership worthwhile in the future. There’s no expectation that you will rejoin. We appreciate your honest feedback.",
     "Anonymized responses will be published publicly with names and identifying details removed. Complete responses are shared with the Sirens Officer Group.",
-    'Email <a href="mailto:contact@sandiegosirens.com">contact@sandiegosirens.com</a> with questions or concerns.',
   ],
   sections: [
     {
@@ -51,6 +51,7 @@ window.SURVEY = {
             "Supporters section (137–139)",
             "Standard seating (101–123, 133–136, 140–141)",
             "Club (C106–C108, 124–132), Loge, or Field seats",
+            "I no longer go to Wave home games",
           ],
           other: true,
         },
@@ -62,9 +63,34 @@ window.SURVEY = {
       questions: [
         {
           id: "E1",
+          type: "multi",
+          label: "Which factors influenced your decision not to renew your Sirens membership for 2026?",
+          options: [
+            "I didn’t go to enough Wave games",
+            "I didn’t participate enough in Sirens activities",
+            "I didn’t feel connected to the Sirens community",
+            "I wasn’t sure what my membership included",
+            "I didn’t know how or when to renew",
+            "I intended to renew but didn’t get around to it",
+            "Personal or financial circumstances",
+            "Scheduling or time constraints",
+            "I moved away from San Diego",
+            "My interest in the Wave changed",
+            "My experience with the Sirens influenced my decision",
+            "Prefer not to say",
+          ],
+          exclusive: ["Prefer not to say"],
+          other: true,
+        },
+        {
+          id: "E2",
+          type: "text",
+          label: "Was there anything the Sirens could have reasonably done differently that might have influenced your decision to renew?",
+        },
+        {
+          id: "E3",
           type: "single",
-          required: true,
-          label: "How likely are you to rejoin the Sirens in 2027?",
+          label: "How likely would you be to consider joining the Sirens again in the future?",
           options: [
             "Very likely",
             "Somewhat likely",
@@ -74,42 +100,12 @@ window.SURVEY = {
           ],
         },
         {
-          id: "E2",
-          type: "text",
-          required: true,
-          label: "What factors will go into your decision whether to rejoin?",
-        },
-      ],
-    },
-    {
-      id: "D",
-      title: "Sirens activities",
-      questions: [
-        {
           id: "D0",
           type: "single",
-          label: "How satisfied are you with the Sirens' contribution to the stadium atmosphere?",
+          label: "How satisfied are you with the Sirens' contribution to the stadium atmosphere and gameday experience?",
           options: SATISFACTION,
           // Only asked of people who went to a game, like the stadium section in the member survey.
           showIf: (a) => a.A2 !== "None",
-        },
-        {
-          id: "D1",
-          type: "grid",
-          label: "How do you feel about the following?",
-          items: [
-            "Sirens watch parties",
-            "Tailgates",
-            "Drums and chants",
-            "Discord",
-            "Newsletter",
-          ],
-          options: [...SATISFACTION, "Doesn't apply to me"],
-        },
-        {
-          id: "D6",
-          type: "text",
-          label: "What else would you like to share about your experience with Sirens activities this year?",
         },
       ],
     },
