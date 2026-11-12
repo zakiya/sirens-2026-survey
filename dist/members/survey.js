@@ -41,7 +41,7 @@ window.SURVEY = {
     ],
   },
   intro: [
-    "We invite our 2026 Sirens members to fill out this survey. Your feedback helps us plan next season and advocate for supporters with Wave FC.",
+    "We invite our 2026 Sirens members to fill out this survey. Your feedback helps us plan next season and advocate on behalf of supporters to Wave FC.",
     "Anonymized responses will be published publicly with names and identifying details removed. Complete responses are shared with the Sirens Officer Group.",
   ],
   sections: [
@@ -131,12 +131,12 @@ window.SURVEY = {
             "Shuttle service",
             "Closed captioning",
             "Quiet room or sensory space",
-            "No, we were able to access the services we needed",
+            "No, we accessed the services we needed",
             "Not applicable / We did not need accessibility services",
           ],
           other: true,
           exclusive: [
-            "No, we were able to access the services we needed",
+            "No, we accessed the services we needed",
             "Not applicable / We did not need accessibility services",
           ],
         },
@@ -162,7 +162,7 @@ window.SURVEY = {
         {
           id: "C2",
           type: "text",
-          label: "Are there other accessibility features or accommodations that would make the game day experience easier or more enjoyable for you or someone attending with you? Please share any suggestions.",
+          label: "Please share any accessibility accommodations that would make the game day experience easier.",
         },
         {
           id: "C6",
@@ -199,6 +199,7 @@ window.SURVEY = {
           id: "D4",
           type: "multi",
           label: "Which types of Sirens activities are you most interested in participating in during 2027?",
+          max: 5,
           options: [
             "Social events",
             "Volunteer events",
@@ -235,7 +236,7 @@ window.SURVEY = {
         {
           id: "D8",
           type: "multi",
-          label: "What, if anything, has made it harder for you to participate in Sirens activities?",
+          label: "What, if anything, has made it harder for you to take part in Sirens activities?",
           options: [
             "I haven't known when or where activities were happening",
             "Scheduling/timing",
