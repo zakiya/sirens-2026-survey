@@ -15,7 +15,7 @@ window.SURVEY = {
   title: "2026 Sirens Community Survey",
   endpoint: "https://script.google.com/macros/s/AKfycbyQhQmDb9364a2Yl3IMm8REDvrmUoJajR9EOqq08pw6bJLAcj8otvOjlhO7VKABE0g3gQ/exec",
   // See ../members/survey.js. Add ?closed to the URL to preview the closed page.
-  closesAt: "2026-11-21T23:59:59-08:00",
+  closesAt: "2026-11-30T23:59:59-08:00",
   closedMessage: [
     "Thank you to everyone who responded. We'll share the anonymized results soon.",
     'Email <a href="mailto:contact@sandiegosirens.com">contact@sandiegosirens.com</a> with questions or late feedback.',

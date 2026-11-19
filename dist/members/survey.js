@@ -27,7 +27,7 @@ window.SURVEY = {
   // When the survey stops accepting responses. Use a full date-time with the Pacific
   // offset, e.g. "2026-12-15T23:59:59-08:00" (-08:00 in winter, -07:00 in summer).
   // The date is shown in the intro automatically. Leave empty to keep the survey open. Add ?closed to the URL to preview the closed page.
-  closesAt: "2026-11-21T23:59:59-08:00",
+  closesAt: "2026-11-30T23:59:59-08:00",
   closedMessage: [
     "Thank you to everyone who responded. We'll share the anonymized results soon.",
     'Email <a href="mailto:contact@sandiegosirens.com">contact@sandiegosirens.com</a> with questions or late feedback.',
@@ -174,7 +174,7 @@ window.SURVEY = {
             "Cheaper parking options",
             "More activities in the kids/family zone",
             "More variety of food and drink options",
-            "More cheering and drumming in the stadium",
+            "More cheering and music-making in the stadium",
             "More halftime activities involving the fans and crowd participation",
             "More tifos, flags, or other supporter displays",
             "Post-game player interactions with fans",
@@ -208,30 +208,11 @@ window.SURVEY = {
             "Wave watch parties",
             "Watch parties or outings for other women’s sports",
             "Tifo painting",
-            "Drum and chant practice",
+            "Music and chant practice",
             "None of these right now",
           ],
           other: true,
           exclusive: ["None of these right now"],
-        },
-        {
-          id: "D7",
-          type: "multi",
-          label: "Which Sirens activities have you not participated in, but would be interested in trying?",
-          options: [
-            "Watch parties",
-            "Tailgates",
-            "Tifo painting",
-            "Drumming",
-            "Chant leading",
-            "Volunteer events",
-            "Donation drives",
-            "Social justice or advocacy activities",
-            "Social events",
-            "None right now",
-          ],
-          other: true,
-          exclusive: ["None right now"],
         },
         {
           id: "D8",
@@ -298,11 +279,6 @@ window.SURVEY = {
           id: "E2",
           type: "text",
           label: "What factors go into your decision whether to renew?",
-        },
-        {
-          id: "E4",
-          type: "text",
-          label: "Are there organizations the Sirens should support?",
         },
       ],
     },
